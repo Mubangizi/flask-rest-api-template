@@ -48,7 +48,6 @@ class UserView(Resource):
 
         users = User.find_all()
 
-        print(users)
         users_data, errors = user_schema.dumps(users)
 
         if errors:
