@@ -1,12 +1,17 @@
 import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flasgger import Swagger
 from app.routes import api
-from app.models import db
+# from app.models import db
 
+# Load env variabes
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 def create_app(config_name):
     """ app factory """
@@ -24,7 +29,7 @@ def create_app(config_name):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # register app with the db
-    db.init_app(app)
+    # db.init_app(app)
 
     # initialize api resources
     api.init_app(app)
@@ -38,7 +43,7 @@ def create_app(config_name):
         'uiversion': 3
     }
 
-    Swagger(app, template_file='api_docs.json')
+    # Swagger(app, template_file='api_docs.json')
 
     # handle default 404 exceptions with a custom response
 
