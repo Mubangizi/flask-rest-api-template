@@ -1,16 +1,17 @@
 import json
 from flask_restful import Resource, request
 
-from app.schemas import UserSchema
+from app.schemas import UserSchema, UserLoginSchema
 from app.models.user import User
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_bcrypt import Bcrypt
 
 
 class UserView(Resource):
 
     def post(self):
         """
-        Creating an User ad
+        Creating a User Account
         """
         user_schema = UserSchema()
 
@@ -20,6 +21,12 @@ class UserView(Resource):
 
         if errors:
             return dict(status='fail', message=errors), 400
+
+        existing_user = User.find_first(email=validated_user_data["email"])
+
+        if existing_user:
+            return dict(status='fail',
+                        message=f'User email {validated_user_data["email"]} already exists'), 409
 
         user = User(**validated_user_data)
 
@@ -121,7 +128,7 @@ class UserLoginView(Resource):
     def post(self):
         """
         """
-        user_schema = UserSchema(only=("email", "password"))
+        user_schema = UserLoginSchema()
         token_schema = UserSchema()
 
         login_data = request.get_json()
@@ -161,3 +168,36 @@ class UserLoginView(Resource):
                 )), 200
 
         return dict(status='fail', message="login failed"), 401
+
+
+class ResetPassword(Resource):
+    def post(self):
+        """
+        Update a single user
+        """
+
+        # To do check if user is admin
+        schema = UserLoginSchema()
+
+        update_data = request.get_json()
+
+        validated_update_data, errors = schema.load(update_data)
+
+        if errors:
+            return dict(status="fail", message=errors), 400
+
+        user = User.find_first(email=validated_update_data["email"])
+
+        if not user:
+            return dict(status="fail", message=f"User with email {validated_update_data['email']} not found"), 404
+
+        password_hash = Bcrypt().generate_password_hash(
+            validated_update_data["password"]).decode()
+
+        updated_user = User.update(
+            user, password=password_hash)
+
+        if not updated_user:
+            return dict(status='fail', message='Internal Server Error'), 500
+
+        return dict(status="success", message="User password reset successfully"), 200
