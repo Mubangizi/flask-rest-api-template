@@ -45,6 +45,7 @@ Add the following details, customizing as needed.
 ```
 export FLASK_APP=server.py
 export DATABASE_URI=postgresql:///flask_app_db
+export FLASK_APP_SECRET=qY2i691SX2sEuZ7LUjY480RS48mw5qCeUiyV0i0vzmg
 export FLASK_ENV=development
 export FLASK_RUN_PORT=5000
 ```
