@@ -13,6 +13,7 @@ from app.models import db
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
+
 def create_app(config_name):
     """ app factory """
 
@@ -43,7 +44,7 @@ def create_app(config_name):
         'uiversion': 3
     }
 
-    # Swagger(app, template_file='api_docs.json')
+    Swagger(app, template_file='api_docs.json')
 
     # handle default 404 exceptions with a custom response
 
