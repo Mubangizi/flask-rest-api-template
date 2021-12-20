@@ -39,7 +39,7 @@ class UserView(Resource):
 
         return dict(status='success', data=dict(user=json.loads(new_user_data))), 201
 
-    # @jwt_required
+    @jwt_required
     def get(self):
         """
         Getting All users
@@ -76,7 +76,7 @@ class UserDetailView(Resource):
 
         return dict(status='success', data=dict(user=json.loads(user_data))), 200
 
-    # @jwt_required
+    @jwt_required
     def patch(self, user_id):
         """
         Update a single user
