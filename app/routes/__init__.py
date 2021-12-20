@@ -1,6 +1,7 @@
 from flask_restful import Api
 from app.controllers import (
-    IndexView, UserView, UserDetailView, UserLoginView, ResetPassword)
+    IndexView, UserView, UserDetailView, UserLoginView, ResetPassword,
+    ProductView, ProductDetailView)
 
 
 api = Api()
@@ -15,3 +16,8 @@ api.add_resource(UserDetailView, '/users/<string:user_id>',
 api.add_resource(UserLoginView, '/users/login', endpoint='user_login')
 api.add_resource(ResetPassword, '/users/reset_password',
                  endpoint='reset_password')
+
+# Product routes
+api.add_resource(ProductView, '/products', endpoint='products')
+api.add_resource(ProductDetailView, '/products/<string:product_id>',
+                 endpoint='product')
