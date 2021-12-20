@@ -16,6 +16,14 @@
           "tags": ["users"],
           "summary": "Gets all Users",
           "produces": ["application/json"],
+          "parameters":[
+            {
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "type": "string"
+            }
+          ],
           "responses": {
             "201": {
               "description": "Successfully gets Users"

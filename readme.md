@@ -1,18 +1,21 @@
 # Flask API Template
 
-This project is aimed at creating initial structure for any flask restful api
+This project is aimed at creating initial boiler plate for any flask restful api.
 
-### Project Setup
+- It provides a basic CRUD functionality for `user` and `product` models
+- It also has basic authentication and authorization for users
+
+## Project Setup
 
 Follow these steps to have a local running copy of the app.
 
-##### Clone The Repo
+### Clone The Repo
 
 `git clone https://github.com/Mubangizi/flask-rest-api-template.git`
 
 If `master` is not up to date, `git checkout develop`. However, note that code on develop could be having some minor issues to sort.
 
-##### Install PostgreSQL
+### Install PostgreSQL
 
 Here's a great resource to check out:
 
@@ -20,29 +23,31 @@ Here's a great resource to check out:
 
 Create a development database and call it `mobile_shop_db`.
 
-##### Create a Virtual Environment
+### Create a Virtual Environment
 
 create virtual enviroment called venv
 
 Run `virtualenv venv`
 
-##### Activate the virtual environment.
+### Activate the virtual environment
 
 Run `. venv/bin/activate`
 
 Make sure you have `pip` installed on your machine.
 
-##### Install the dependencies.
+### Install the dependencies
 
-`pip install -r requirements.txt`
+```bash
+pip install -r requirements.txt
+```
 
-##### Create a .env file
+### Create a .env file
 
 Create a `.env` file (which defines the environment variables used) at the root of the app.
 
 Add the following details, customizing as needed.
 
-```
+```bash
 export FLASK_APP=server.py
 export DATABASE_URI=postgresql:///flask_app_db
 export FLASK_APP_SECRET=qY2i691SX2sEuZ7LUjY480RS48mw5qCeUiyV0i0vzmg
@@ -50,22 +55,27 @@ export FLASK_ENV=development
 export FLASK_RUN_PORT=5000
 ```
 
-##### Run Database migrations
+### Run Database migrations
 
-Run migrations for the database
+Run migrations for the database. This will create the tables for the models in the database .
 
 `python manage.py db upgrade`
 
-##### Run Application
+#### Note:
+If you make changes to the models, you need to create migrations for the changes by running `python manage.py db migrate` and then `python manage.py db upgrade` to add the changes to the database.
+
+### Run Application
 
 Run the application with this command
 
-`flask run`
+```bash
+flask run
+```
 
-##### Test the API
+### Test the API
 
 Through your browser go to link `localhost:<flask_port>/`.
 
-##### Checkout Api docs
+### Checkout Application Api docs
 
 Through your browser go to link `localhost:<flask_port>/apidocs`.
