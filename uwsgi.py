@@ -6,5 +6,4 @@ if __name__ == '__main__':
     app.run()
 
 # Run this file using;
-#    gunicorn --bind 0.0.0.0:5000 wsgi:app
-#    gunicorn wsgi:app
+#    gunicorn --bind 0.0.0.0:5000 uwsgi:app

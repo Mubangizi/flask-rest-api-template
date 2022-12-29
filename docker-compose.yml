@@ -1,0 +1,37 @@
+version: "3"
+services:
+  database:
+    restart: unless-stopped
+    image: postgres:10.8-alpine
+    container_name: flask-postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: flask_app_db
+    ports:
+      - "4200:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  
+  api:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flask-template-api
+    environment:
+      DATABASE_URI: postgresql://postgres:postgres@database:5432/flask_app_db
+      FLASK_APP_SECRET: qY2i691SX2sEuZ7LUjY480RS48mw5qCeUiyV0i0vzmg
+      FLASK_ENV: development
+      FLASK_APP: server.py
+      FLASK_RUN_PORT: 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    depends_on:
+      - database
+    links:
+      - database
+
+volumes:
+  db-data:
