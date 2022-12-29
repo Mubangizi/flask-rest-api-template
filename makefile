@@ -32,9 +32,9 @@ stop: ## Stop all project images and volumes
 	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) down -v
 	@ ${INFO} "Stop complete"
 
-connect-to-container:build-image ## Connect to a container
+connect-to-container: ## Connect to a container
 	@ ${INFO} "Connecting to a container"
-	@ docker compose -f $(DOCKER_DEV_COMPOSE_FILE) run --rm --service-ports api sh
+	@ docker compose -f $(DOCKER_DEV_COMPOSE_FILE) exec -it api /bin/bash
 
 test:build-image ## Run tests
 	@ ${INFO} "Connecting to container"

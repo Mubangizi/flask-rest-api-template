@@ -4,10 +4,6 @@ FROM python:3.6
 # set the (container) working directory
 WORKDIR /app
 
-# install netcat
-RUN apt-get update && \
-    apt-get install netcat -y
-
 COPY requirements.txt /app/requirements.txt
 
 # define environment variables
@@ -25,3 +21,5 @@ EXPOSE 5000
 
 # run when the container launches
 CMD ["bash","/app/scripts/start.sh"]
+
+# CMD ["bash","/app/scripts/prod-start.sh"]
